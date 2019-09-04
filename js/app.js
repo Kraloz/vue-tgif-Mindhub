@@ -25,26 +25,36 @@ const app = new Vue({
       })
       return res.sort()
     },
-    parties: function () {
-      parties = {
-        republicans: new Party('r'),
-        democrats: new Party('d'),
-        independents: new Party('i')
+    stats: function () {
+      let stats = {
+        parties : {
+          republicans: new Party('Republicans'),
+          democrats: new Party('Democrats'),
+          independents: new Party('Independents')
+        },
+        total: function () {
+          console.log(this)
+          // let total = 0
+          // this.parties.forEach(party => {
+          //   total += party.no_members
+          // });
+          // return total
+        }
       }
       this.members.forEach(member => {
         switch (member.party.toLowerCase()) {
           case 'd':
-            parties.democrats.addMember(member);
+            stats.parties.democrats.addMember(member);
             break;
           case 'r':
-            parties.republicans.addMember(member);
+            stats.parties.republicans.addMember(member);
             break;
           case 'i':
-            parties.independents.addMember(member);
+            stats.parties.independents.addMember(member);
             break;
         }
       });
-      return parties
+      return stats
     }
   },
   methods: {
