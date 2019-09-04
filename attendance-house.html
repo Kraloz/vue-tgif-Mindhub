@@ -70,13 +70,18 @@
             </tr>
           </thead>
           <tbody>
-            <template v-for="party in parties">
+            <template v-for="party in stats.parties">
               <tr v-if="true">
-                <td> {{ party.party.toUpperCase() }}</td>
-                <td>{{ party.members.length }}</td>
-                <td>{{ party.votes_with_party_pct }}% </td>
+                <td> {{ party.party }}</td>
+                <td>{{ party.no_members }}</td>
+                <td>{{ party.avg_votes_with_party }}% </td>
               </tr>
             </template>
+            <tr>
+              <td>Total</td>
+              <td>asdasd</td>
+              <td> {{ stats.total }} </td>
+            </tr>
           </tbody>
         </table>
       </div>

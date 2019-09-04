@@ -9,7 +9,7 @@ class Party {
   }
   
   addMember(member) {
-    if(member.party.toLowerCase() === this.party) {
+    if(member.party.toLowerCase() === this.party[0].toLowerCase()) {
       this.members.push(member);
       this.no_members++;
       this.calcStats();
