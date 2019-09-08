@@ -1,12 +1,12 @@
 <template>
-  <div class="loader-bg" v-if="loading">
+  <div class="loader-bg"  v-if="$store.state.loading">
       <div class="loader"></div>
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'Loader'
 }
 </script>
 
