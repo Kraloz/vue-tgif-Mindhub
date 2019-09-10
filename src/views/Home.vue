@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container">
+    <div class="container my-3">
       <div class="row">
           <div class="col-9">
             <h2 class="mt-3">About Us</h2>
