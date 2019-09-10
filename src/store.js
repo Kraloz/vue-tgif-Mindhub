@@ -80,8 +80,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    membersLength: state => {
-      return state.members.length
+    statsOf: (state) => (party) => {
+      return state.stats[party]
     }
   }
 

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h4 class="text-muted">Least Engaged (Bottom 10 Attendance)</h4>
-    <table id="least-engaged" class="table">
+    <h4 class="text-muted">{{ title }}</h4>
+    <table class="table">
       <thead>
         <tr class="align-items-center">
           <th scope="col">Name</th>
-          <th scope="col">No. Missed Votes</th>
-          <th scope="col">% Missed</th>
+          <th scope="col">{{ tableHeadData }}</th>
+          <th scope="col">% {{ tableHeadPct }}</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +20,12 @@
 
 <script>
 export default {
-  name: 'PartyTopTable'
+  name: 'PartyTopTable',
+  props: {
+    title: String,
+    tableHeadData: String,
+    tableHeadPct: String,
+    stats: Object
+  }
 }
 </script>

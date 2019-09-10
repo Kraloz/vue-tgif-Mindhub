@@ -14,23 +14,46 @@
           <PartyFilters class="row"/>
       </div>
       <div class="row mt-1">
-          <PartyTopTable class="col"/>
-          <PartyTopTable class="col"/>
+          <PartyTopTable class="col"
+            title="Least Engaged (Bottom 10 Attendance)"
+            tableHeadData="No. of Missed Votes"
+            tableHeadPct="Missed"
+            :stats="statsOf(displayParty)"
+          />
+          <!-- repensar esto mañana, hace falta pasar los props, o puedo usar directamente store y a la mierda? -->
+          <PartyTopTable class="col"
+            title="Most Engaged (Top 10 Attendance)"
+            tableHeadData="No. of Missed Votes"
+            tableHeadPct="Missed"
+            :stats="statsOf(displayParty)"
+          />
       </div>
     </div>
+    
   </main>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import ResumeTable from '@/components/ResumeTable.vue'
 import PartyTopTable from '@/components/PartyTopTable.vue'
 import PartyFilters from '@/components/PartyFilters.vue'
 
 export default {
+  name: 'AttendanceHouse',
   components: {
     ResumeTable,
     PartyTopTable,
     PartyFilters
+  },
+  data () {
+    return {
+      displayParty: 'd'
+    }
+  },
+  computed: {
+    ...mapState,
+    ...mapGetters(['statsOf'])
   }
 }
 </script>
