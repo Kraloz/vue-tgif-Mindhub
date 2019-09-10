@@ -35,7 +35,7 @@ export default class Party {
   }
   
   calcTops() {
-    // let tenPct = Math.round(this.members.length * 0.10)
+    let tenPct = Math.round(this.members.length * 0.10)
     this.least_engaged = []
     this.most_engaged = []
     
@@ -43,7 +43,7 @@ export default class Party {
     members.sort((a, b) => {
       return a.missed_votes_pct - b.missed_votes_pct
     })
-    this.top_10_most_engaged.push(...members.slice(0, 10))
-    this.top_10_least_engaged.push(...members.slice((members.length-10), members.length))
+    this.most_engaged.push(...members.slice(0, tenPct))
+    this.least_engaged.push(...members.slice((members.length-tenPct), members.length))
   }
 }

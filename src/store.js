@@ -23,10 +23,8 @@ export default new Vuex.Store({
     SET_MEMBERS(state, members) {
       state.members = members
     },
-    SET_MEMBERS_PARTY(state, party, members) {
-      console.log('existe: ', party, members)
-      // TODO: revisar acá broski - members pasa como undefined wtf ¿?
-      // state.stats[party].members = members
+    SET_MEMBERS_PARTY(state, payload) {
+      state.stats[payload.party].members = payload.members
     }
   },
   actions: {
@@ -73,15 +71,12 @@ export default new Vuex.Store({
             break
         }
       })
-      // for (const party in list) {
-      //   // eslint-disable-next-line no-prototype-builtins
-      //   if (list.hasOwnProperty(party)) {
-      //     context.commit('SET_MEMBERS_PARTY', party, list[party])
-      //   }
-      // }
-      console.log(list.d)
-      // TODO: revisar acá broski
-      context.commit('SET_MEMBERS_PARTY', 'd', [...list.d])
+      for (const party in list) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (list.hasOwnProperty(party)) {
+          if(list[party].length) context.commit('SET_MEMBERS_PARTY', { party, members:list[party] })
+        }
+      }
     }
   },
   getters: {
