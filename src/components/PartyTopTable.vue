@@ -10,9 +10,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <!-- ACA VAN LOS MIEMBROS -->
-        </tr>
+        <tr
+          v-for="(member, index) in stats.members"
+          :key="index">
+          <td>{{`${member.first_name} ${member.middle_name || ''} ${member.last_name}`}}</td>
+          <td>{{}}</td>
+          <td>{{}}</td>
+          </tr>
       </tbody>
     </table>
   </div>
@@ -25,7 +29,8 @@ export default {
     title: String,
     tableHeadData: String,
     tableHeadPct: String,
-    stats: Object
+    stats: Object,
+    leasOrMost: String
   }
 }
 </script>
