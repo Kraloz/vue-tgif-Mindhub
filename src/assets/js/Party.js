@@ -5,6 +5,8 @@ export default class Party {
     this.avg_votes_with_party = 0
     this.least_engaged = []
     this.most_engaged = []
+    this.least_loyal = []
+    this.most_loyal = []
   }
 
   set members(members) {
@@ -46,4 +48,38 @@ export default class Party {
     this.most_engaged.push(...members.slice(0, tenPct))
     this.least_engaged.push(...members.slice((members.length-tenPct), members.length))
   }
+
+
+
+
+
+
+
+  // segir ac+á mas tardwe
+    sortMembers() {
+    membersSortedByLoyalty = [...members].sort(function (a, b) {
+        return b.votes_with_party_pct - a.votes_with_party_pct
+    });
+    membersVotesPercAsc = [...members].sort(function (a, b) {
+        return a.votes_with_party_pct - b.votes_with_party_pct
+    });
+    membersMissedVotesPercDesc = [...members].sort(function (a, b) {
+        return b.missed_votes_pct - a.missed_votes_pct
+    });
+    membersMissedVotesPercAsc = [...members].sort(function (a, b) {
+        return a.missed_votes_pct - b.missed_votes_pct
+    });
+}
+  makeTenPercent(array, key, finalArray) {
+    for (var i = 0; i < array.length; i++) {
+        if (i < array.length / 10) {
+            finalArray.push(array[i]);
+        } else if (array[i][key] == array[i - 1][key]) {
+            finalArray.push(array[i]);
+        } else {
+            break;
+        }
+    }
+    return finalArray;
+}
 }
