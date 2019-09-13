@@ -10,13 +10,26 @@
         </tr>
       </thead>
       <tbody>
+        <tr
+          v-for="(party, index) in stats"
+          :key="index"
+        >
+          <td>{{ party.name }}</td>
+          <td>{{ party.no_members }}</td>
+          <td>{{ party.avg_votes_with_party }}</td>
+         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'ResumeTable'
+  name: 'ResumeTable',
+  computed: {
+    ...mapState(['stats'])
+  }
 }
 </script>
