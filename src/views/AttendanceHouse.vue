@@ -17,7 +17,7 @@
       </div>
       <hr>
       <div class="col d-flex justify-content-end">
-          <PartyFilters class="row"/>
+          <PartyFilters class="row" @changedParty="changeDisplayParty"/>
       </div>
       <div class="row mt-1">
           <PartyTopTable class="col"
@@ -25,6 +25,8 @@
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
             :stats="statsOf(displayParty)"
+            whichSlice="least"
+            :whichData="whichData"
           />
           <!-- repensar esto mañana, hace falta pasar los props, o puedo usar directamente store y a la mierda? -->
           <PartyTopTable class="col"
@@ -32,6 +34,8 @@
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
             :stats="statsOf(displayParty)"
+            whichSlice="most"
+            :whichData="whichData"
           />
       </div>
     </div>
@@ -40,11 +44,11 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 import ResumeTable from '@/components/ResumeTable.vue'
 import PartyTopTable from '@/components/PartyTopTable.vue'
 import PartyFilters from '@/components/PartyFilters.vue'
-
+import { mapActions, mapGetters } from 'vuex'
+// TODO: MAPSTATE Y MAP ACTIONS NO ANDA QUE ONDAAAAAA
 export default {
   name: 'AttendanceHouse',
   components: {
@@ -54,17 +58,23 @@ export default {
   },
   data () {
     return {
+      whichData: 'engaged',
       displayParty: 'd'
     }
   },
+  created() {
+    if(!this.membersSize) {
+      this.fetchMembers()
+    }
+  },
   computed: {
-    ...mapState,
-    ...mapGetters(['statsOf'])
+    ...mapGetters(['statsOf','membersSize'])
   },
   methods: {
+    ...mapActions(['fetchMembers']),
     changeDisplayParty(party) {
       this.displayParty = party
-    }
+    },
   }
 }
 </script>
