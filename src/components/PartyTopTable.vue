@@ -11,11 +11,11 @@
       </thead>
       <tbody>
         <tr
-          v-for="(member, index) in stats.members"
+          v-for="(member, index) in stats[`${whichSlice}_${whichData}`]"
           :key="index">
-          <td>{{`${member.first_name} ${member.middle_name || ''} ${member.last_name}`}}</td>
-          <td>{{}}</td>
-          <td>{{}}</td>
+          <td>{{ `${member.first_name} ${member.middle_name || ''} ${member.last_name}` }}</td>
+          <td>{{ member.missed_votes }}</td>
+          <td>{{ member.missed_votes_pct }}</td>
           </tr>
       </tbody>
     </table>
@@ -30,7 +30,8 @@ export default {
     tableHeadData: String,
     tableHeadPct: String,
     stats: Object,
-    leasOrMost: String
+    whichSlice: String,
+    whichData: String
   }
 }
 </script>
