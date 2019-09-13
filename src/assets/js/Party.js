@@ -1,5 +1,6 @@
 export default class Party {
   constructor(party) {
+    this.name = party
     this.party = () => party[0].toUppercase()
     this.__members = []
     this.avg_votes_with_party = 0
