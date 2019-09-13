@@ -82,7 +82,8 @@ export default new Vuex.Store({
   getters: {
     statsOf: (state) => (party) => {
       return state.stats[party]
-    }
+    },
+    membersSize: (state) => state.members.length
   }
 
 })
