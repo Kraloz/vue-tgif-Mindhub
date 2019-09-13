@@ -54,14 +54,21 @@
 
 <script>
 import ResumeTable from '@/components/ResumeTable.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     ResumeTable
   },
+  methods: {
+    ...mapActions(['fetchMembers'])
+  },
+  computed: {
+    ...mapGetters(['membersSize'])
+  },
   created() {
-    if (!this.$store.getters.membersLength) {
-      this.$store.dispatch("fetchMembers")
+    if(!this.membersSize) {
+      this.fetchMembers()
     }
   }
 }

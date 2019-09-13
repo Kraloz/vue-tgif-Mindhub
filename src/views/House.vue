@@ -15,13 +15,21 @@
 
 <script>
 import PartyIntroTable from '@/components/PartyIntroTable.vue'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   components: {
     PartyIntroTable
   },
+  methods: {
+    ...mapActions(['fetchMembers'])
+  },
+  computed: {
+    ...mapGetters(['membersSize'])
+  },
   created() {
-    if(!this.$store.getters.membersLength){
-      this.$store.dispatch('fetchMembers')
+    if(!this.membersSize) {
+      this.fetchMembers()
     }
   }
 }

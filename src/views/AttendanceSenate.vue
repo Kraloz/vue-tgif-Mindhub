@@ -56,10 +56,22 @@
 
 <script>
 import ResumeTable from '@/components/ResumeTable.vue'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
+  name: 'AttendanceSenate',
   components: {
     ResumeTable
+  },
+  methods: {
+    ...mapActions(['fetchMembers'])
+  },
+  computed: {
+    ...mapGetters(['membersSize'])
+  },
+  created() {
+    if(!this.membersSize) {
+      this.fetchMembers()
+    }
   }
 }
 </script>
