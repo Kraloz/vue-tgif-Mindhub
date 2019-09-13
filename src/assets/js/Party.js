@@ -59,18 +59,3 @@ export default class Party {
     this.least_loyal = [...membersByLoyalty].slice((membersByLoyalty.length-tenPctOfMembers), membersByLoyalty.length).reverse()
   }
 }
-/* 
-  "legacy" func
-  calcTops() {
-    let tenPct = Math.round(this.members.length * 0.10)
-    this.least_engaged = []
-    this.most_engaged = []
-
-    let members = [...this.members]
-    members.sort((a, b) => {
-      return a.missed_votes_pct - b.missed_votes_pct
-    })
-    this.most_engaged.push(...members.slice(0, tenPct))
-    this.least_engaged.push(...members.slice((members.length-tenPct), members.length))
-  }
-*/

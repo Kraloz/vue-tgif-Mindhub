@@ -48,7 +48,6 @@ import ResumeTable from '@/components/ResumeTable.vue'
 import PartyTopTable from '@/components/PartyTopTable.vue'
 import PartyFilters from '@/components/PartyFilters.vue'
 import { mapActions, mapGetters } from 'vuex'
-// TODO: MAPSTATE Y MAP ACTIONS NO ANDA QUE ONDAAAAAA
 export default {
   name: 'AttendanceHouse',
   components: {
