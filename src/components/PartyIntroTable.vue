@@ -56,6 +56,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'PartyIntroTable'
 }
