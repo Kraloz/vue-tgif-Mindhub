@@ -37,49 +37,37 @@ export default class Party {
   }
   
   calcTops() {
-    let tenPct = Math.round(this.members.length * 0.10)
     this.least_engaged = []
     this.most_engaged = []
-    
-    let members = [...this.members]
-    members.sort((a, b) => {
+    this.least_loyal = []
+    this.most_loyal = []
+
+    let tenPctOfMembers = Math.round(this.members.length * 0.10)
+     
+    // from most to least
+    let membersByAttendance = [...this.members].sort(function (a, b) {
       return a.missed_votes_pct - b.missed_votes_pct
-    })
-    this.most_engaged.push(...members.slice(0, tenPct))
-    this.least_engaged.push(...members.slice((members.length-tenPct), members.length))
-  }
-
-
-
-
-
-
-
-  // segir ac+á mas tardwe
-    sortMembers() {
-    membersSortedByLoyalty = [...members].sort(function (a, b) {
-        return b.votes_with_party_pct - a.votes_with_party_pct
     });
-    membersVotesPercAsc = [...members].sort(function (a, b) {
+    // from most to least
+    let membersByLoyalty = [...this.members].sort(function (a, b) {
         return a.votes_with_party_pct - b.votes_with_party_pct
     });
-    membersMissedVotesPercDesc = [...members].sort(function (a, b) {
-        return b.missed_votes_pct - a.missed_votes_pct
-    });
-    membersMissedVotesPercAsc = [...members].sort(function (a, b) {
-        return a.missed_votes_pct - b.missed_votes_pct
-    });
-}
-  makeTenPercent(array, key, finalArray) {
-    for (var i = 0; i < array.length; i++) {
-        if (i < array.length / 10) {
-            finalArray.push(array[i]);
-        } else if (array[i][key] == array[i - 1][key]) {
-            finalArray.push(array[i]);
-        } else {
-            break;
-        }
-    }
-    return finalArray;
-}
-}
+    this.most_engaged = membersByAttendance.slice(0, tenPctOfMembers)
+    this.least_engaged = membersByAttendance.slice((membersByAttendance.length-tenPctOfMembers), membersByAttendance.length)
+    this.most_loyal = membersByLoyalty.slice(0, tenPctOfMembers)
+    this.least_loyal = membersByLoyalty.slice((membersByLoyalty.length-tenPctOfMembers), membersByLoyalty.length)
+  }
+} 
+  //  "legacy" func
+  // calcTops() {
+  //   let tenPct = Math.round(this.members.length * 0.10)
+  //   this.least_engaged = []
+  //   this.most_engaged = []
+
+  //   let members = [...this.members]
+  //   members.sort((a, b) => {
+  //     return a.missed_votes_pct - b.missed_votes_pct
+  //   })
+  //   this.most_engaged.push(...members.slice(0, tenPct))
+  //   this.least_engaged.push(...members.slice((members.length-tenPct), members.length))
+  // }
