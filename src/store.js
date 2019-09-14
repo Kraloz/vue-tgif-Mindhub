@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import Party from '@/assets/js/Party.js'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
     loading: false,
@@ -11,9 +10,18 @@ export default new Vuex.Store({
     members: [],
     key: process.env.VUE_APP_SECRET,
     stats: {
-        d: new Party('Democrats'),
-        r: new Party('Republicans'),
-        i: new Party('Independents')
+      congress: {
+        house: {
+          d: new Party('Democrats'),
+          r: new Party('Republicans'),
+          i: new Party('Independents')
+        },
+        senate: {
+          d: new Party('Democrats'),
+          r: new Party('Republicans'),
+          i: new Party('Independents')
+        }
+    }
     }
   },
   mutations: {

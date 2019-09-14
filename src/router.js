@@ -2,12 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
-import House from '@/views/House.vue'
-import Senate from '@/views/Senate.vue'
-import AttendanceHouse from '@/views/AttendanceHouse.vue'
-import AttendanceSenate from '@/views/AttendanceSenate.vue'
-import LoyaltyHouse from '@/views/LoyaltyHouse.vue'
-import LoyaltySenate from '@/views/LoyaltySenate.vue'
+import Congress from '@/views/Conggress.vue'
+import Attendance from '@/views/Attendance.vue'
+import Loyalty from '@/views/Loyalty.vue'
 
 
 Vue.use(Router)
@@ -21,34 +18,19 @@ export default new Router({
       component: Home
     },
     {
-      path: '/house',
-      name: 'house',
-      component: House
+      path: '/:congress',
+      name: 'congress',
+      component: Congress
     },
     {
-      path: '/senate',
-      name: 'senate',
-      component: Senate
+      path: '/attendance/:congress',
+      name: 'attendance',
+      component: Attendance
     },
     {
-      path: '/attendance/house',
-      name: 'attendanceHouse',
-      component: AttendanceHouse
-    },
-    {
-      path: '/attendance/senate',
-      name: 'attendanceSenate',
-      component: AttendanceSenate
-    },
-    {
-      path: '/loyalty/house',
-      name: 'loyaltyHouse',
-      component: LoyaltyHouse
-    },
-    {
-      path: '/loyalty/senate',
-      name: 'loyaltySenate',
-      component: LoyaltySenate
+      path: '/loyalty/:congress',
+      name: 'congress',
+      component: Loyalty
     }
   ]
 })
