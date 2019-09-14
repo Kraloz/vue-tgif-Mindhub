@@ -1,6 +1,5 @@
 <template>
   <div id="table-filters" class="btn-group btn-group-toggle" data-toggle="buttons">
-
     <label class="btn btn-secondary" @click="changeParty('d')" >
       <input type="radio" name="options" id="option1" /> Democrats
     </label>

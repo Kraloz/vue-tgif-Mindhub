@@ -13,14 +13,14 @@
              In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present)
              cast the tiebreaking vote.</p>
         </div>
-        <ResumeTable class="col"/>
+        <resumeTable class="col"/>
       </div>
       <hr>
       <div class="col d-flex justify-content-end">
-          <PartyFilters class="row" @changedParty="changeDisplayParty"/>
+          <party-filters class="row" @changedParty="changeDisplayParty"/>
       </div>
       <div class="row mt-1">
-          <PartyTopTable class="col"
+          <party-top-table class="col"
             title="Least Engaged (Bottom 10 Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
@@ -28,8 +28,7 @@
             whichSlice="least"
             :whichData="whichData"
           />
-          <!-- repensar esto mañana, hace falta pasar los props, o puedo usar directamente store y a la mierda? -->
-          <PartyTopTable class="col"
+          <party-top-table class="col"
             title="Most Engaged (Top 10 Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
