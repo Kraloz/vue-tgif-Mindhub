@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'TheNavBar'
+  name: 'TheNavbar'
 }
 </script>
 

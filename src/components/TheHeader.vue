@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import TheNavbar from '@/components/TheNavBar.vue'
+import TheNavbar from '@/components/TheNavbar.vue'
 
 export default {
   name: 'AppHeader',

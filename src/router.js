@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
-import Congress from '@/views/Conggress.vue'
+import Congress from '@/views/Congress.vue'
 import Attendance from '@/views/Attendance.vue'
 import Loyalty from '@/views/Loyalty.vue'
 
