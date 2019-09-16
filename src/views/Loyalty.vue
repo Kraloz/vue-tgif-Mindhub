@@ -4,72 +4,74 @@
       <div class="row">
         <div class="col">
           <h2 class="mt-3">Loyalty</h2>
-          <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda.</p>
+          <p>Those who consider themselves to be strong partisans, strong Democrats
+            and strong Republicans respectively, tend to be the most faithful in voting
+            for their party's nominee for office and legislation that backs their
+            party's agenda.</p>
         </div>
-        <ResumeTable class="col"/>
+        <resumeTable class="col"/>
       </div>
-      <hr/>
+      <hr>
+      <div class="col d-flex justify-content-end">
+          <party-filters class="row" @changedParty="changeDisplayParty"/>
+      </div>
       <div class="row mt-1">
-        <div class="col">
-          <h4 class="text-muted">Least Engaged (Bottom 10 Attendance)</h4>
-          <div id="table-filters" class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option1" data-target="democrats" /> Democrats
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option2" data-target="republicans" /> Republicans
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="option3" data-target="independents" /> Independents
-            </label>
-          </div>
-          <table id="least-engaged" class="table">
-            <thead>
-              <tr class="align-items-center">
-                <th scope="col">Name</th>
-                <th scope="col">No. Missed Votes</th>
-                <th scope="col">% Missed</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="col">
-          <h4 class="text-muted">Most Engaged (Top 10 Attendance)</h4>
-          <table id="most-engaged" class="mt-5 table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">No. of Missed Votes</th>
-                <th scope="col">% Missed</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+          <party-top-table class="col"
+            title="Least Loyal (Bottom 10% of Party)"
+            tableHeadData="No. of Missed Votes"
+            tableHeadPct="Missed"
+            :stats="statsOf(congress, displayParty)"
+            whichSlice="least"
+            :whichData="whichData"
+          />
+          <party-top-table class="col"
+            title="Most Loyal (Top 10% of Party)"
+            tableHeadData="No. of Missed Votes"
+            tableHeadPct="Missed"
+            :stats="statsOf(congress, displayParty)"
+            whichSlice="most"
+            :whichData="whichData"
+          />
       </div>
     </div>
+    
   </main>
 </template>
 
 <script>
 import ResumeTable from '@/components/ResumeTable.vue'
+import PartyTopTable from '@/components/PartyTopTable.vue'
+import PartyFilters from '@/components/PartyFilters.vue'
 import { mapActions, mapGetters } from 'vuex'
-
 export default {
+  name: 'Loyalty',
   components: {
-    ResumeTable
+    ResumeTable,
+    PartyTopTable,
+    PartyFilters
   },
-    methods: {
-    ...mapActions(['fetchMembers'])
-  },
-  computed: {
-    ...mapGetters(['membersSize'])
+  data () {
+    return {
+      whichData: 'loyal',
+      displayParty: 'd'
+    }
   },
   created() {
-    if(!this.membersSize) {
-      this.fetchMembers()
+    if(!this.membersSize(this.congress)) {
+      this.fetchMembers(this.congress)
     }
+  },
+  computed: {
+    ...mapGetters(['statsOf','membersSize']),
+    congress() {
+      return this.$route.params.congress
+    }
+  },
+  methods: {
+    ...mapActions(['fetchMembers']),
+    changeDisplayParty(party) {
+      this.displayParty = party
+    },
   }
 }
 </script>

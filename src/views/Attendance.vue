@@ -21,7 +21,7 @@
       </div>
       <div class="row mt-1">
           <party-top-table class="col"
-            title="Least Engaged (Bottom 10 Attendance)"
+            title="Least Engaged (Bottom 10% Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
             :stats="statsOf(congress, displayParty)"
@@ -29,7 +29,7 @@
             :whichData="whichData"
           />
           <party-top-table class="col"
-            title="Most Engaged (Top 10 Attendance)"
+            title="Most Engaged (Top 10% Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
             :stats="statsOf(congress, displayParty)"
