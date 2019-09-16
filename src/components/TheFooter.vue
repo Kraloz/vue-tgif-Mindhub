@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="container">
+    <div class="container mb-3">
       <div class="row border border-dark bg-dark">
         <div class="col py-3">
           <div class="d-flex justify-content-center align-items-center">
