@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(party, index) in stats"
+          v-for="(party, index) in stats[congress]"
           :key="index"
         >
           <td>{{ party.name }}</td>
@@ -24,12 +24,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'ResumeTable',
   computed: {
-    ...mapState(['stats'])
+    ...mapGetters(['statsOf','membersSize']),
+    ...mapState(['stats']),
+    congress() {
+      return this.$route.params.congress
+    }
   }
 }
 </script>
