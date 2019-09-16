@@ -88,6 +88,15 @@ export default new Vuex.Store({
   },
   getters: {
     statsOf: (state) => (congress, party) => state.stats[congress][party],
-    membersSize: (state) => (congress) => state.members[congress].length
+    membersSize: (state) => (congress) => state.members[congress].length,
+    states: (state) => {
+      let res = []
+      this.members.forEach(member => {
+        if(!res.includes(member.state)) {
+          res.push(member.state)
+        }
+      })
+      return res.sort()
+    }
   }
 })
