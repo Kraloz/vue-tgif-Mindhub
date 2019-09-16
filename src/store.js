@@ -6,39 +6,39 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     loading: false,
-    url: 'https://api.propublica.org/congress/v1/113/house/members.json',
-    members: [],
     key: process.env.VUE_APP_SECRET,
+    members: {
+      house: [],
+      senate: []
+    },
     stats: {
-      congress: {
-        house: {
-          d: new Party('Democrats'),
-          r: new Party('Republicans'),
-          i: new Party('Independents')
-        },
-        senate: {
-          d: new Party('Democrats'),
-          r: new Party('Republicans'),
-          i: new Party('Independents')
-        }
-    }
+      house: {
+        d: new Party('Democrats'),
+        r: new Party('Republicans'),
+        i: new Party('Independents')
+      },
+      senate: {
+        d: new Party('Democrats'),
+        r: new Party('Republicans'),
+        i: new Party('Independents')
+      }
     }
   },
   mutations: {
     SET_LOADING_STATUS(state, status) {
       state.loading = status
     },
-    SET_MEMBERS(state, members) {
-      state.members = members
+    SET_MEMBERS(state, payload) {
+      state.members[payload.congress] = payload.members
     },
     SET_MEMBERS_PARTY(state, payload) {
-      state.stats[payload.party].members = payload.members
+      state.stats[payload.congress][payload.party].members = payload.members
     }
   },
   actions: {
-    fetchMembers(context) {
+    fetchMembers(context, congress) {
       context.commit('SET_LOADING_STATUS', true)
-      fetch(this.state.url, {
+      fetch(`https://api.propublica.org/congress/v1/113/${congress}/members.json`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -51,22 +51,21 @@ export default new Vuex.Store({
         return response.json()
       }).then(json => {
         context.commit('SET_LOADING_STATUS', false)
-        context.commit('SET_MEMBERS', json.results[0].members)
-      
-        context.dispatch('fillParties')
+        context.commit('SET_MEMBERS', { congress, members: json.results[0].members })
+        context.dispatch('fillParties', congress)
       }).catch(error => {
         context.commit('SET_LOADING_STATUS', false)
         // eslint-disable-next-line no-console
         console.error(error)
       })
     },
-    fillParties(context) {
+    fillParties(context, congress) {
       let list = {
         d: [],
         r: [],
         i: []
       }
-      this.state.members.forEach(member => {
+      this.state.members[congress].forEach(member => {
         switch (member.party.toLowerCase()) {
           case 'd':
             list.d.push(member)
@@ -82,16 +81,13 @@ export default new Vuex.Store({
       for (const party in list) {
         // eslint-disable-next-line no-prototype-builtins
         if (list.hasOwnProperty(party)) {
-          if(list[party].length) context.commit('SET_MEMBERS_PARTY', { party, members:list[party] })
+          if(list[party].length) context.commit('SET_MEMBERS_PARTY', { party: party, congress: congress , members: list[party] })
         }
       }
     }
   },
   getters: {
-    statsOf: (state) => (party) => {
-      return state.stats[party]
-    },
-    membersSize: (state) => state.members.length
+    statsOf: (state) => (congress, party) => state.stats[congress][party],
+    membersSize: (state) => (congress) => state.members[congress].length
   }
-
 })

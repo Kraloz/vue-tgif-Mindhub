@@ -24,7 +24,7 @@
             title="Least Engaged (Bottom 10 Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
-            :stats="statsOf(displayParty)"
+            :stats="statsOf(congress, displayParty)"
             whichSlice="least"
             :whichData="whichData"
           />
@@ -32,7 +32,7 @@
             title="Most Engaged (Top 10 Attendance)"
             tableHeadData="No. of Missed Votes"
             tableHeadPct="Missed"
-            :stats="statsOf(displayParty)"
+            :stats="statsOf(congress, displayParty)"
             whichSlice="most"
             :whichData="whichData"
           />
@@ -48,7 +48,7 @@ import PartyTopTable from '@/components/PartyTopTable.vue'
 import PartyFilters from '@/components/PartyFilters.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: 'AttendanceHouse',
+  name: 'Attendance',
   components: {
     ResumeTable,
     PartyTopTable,
@@ -61,12 +61,15 @@ export default {
     }
   },
   created() {
-    if(!this.membersSize) {
-      this.fetchMembers()
+    if(!this.membersSize(this.congress)) {
+      this.fetchMembers(this.congress)
     }
   },
   computed: {
-    ...mapGetters(['statsOf','membersSize'])
+    ...mapGetters(['statsOf','membersSize']),
+    congress() {
+      return this.$route.params.congress
+    }
   },
   methods: {
     ...mapActions(['fetchMembers']),
