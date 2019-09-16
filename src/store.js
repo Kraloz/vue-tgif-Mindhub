@@ -89,9 +89,9 @@ export default new Vuex.Store({
   getters: {
     statsOf: (state) => (congress, party) => state.stats[congress][party],
     membersSize: (state) => (congress) => state.members[congress].length,
-    states: (state) => {
+    states: (state) => (congress) => {
       let res = []
-      this.members.forEach(member => {
+      state.members[congress].forEach(member => {
         if(!res.includes(member.state)) {
           res.push(member.state)
         }

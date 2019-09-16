@@ -21,7 +21,7 @@
             <select id="states" v-model="filters.state">
                 <option value="">All</option>
                 <option 
-                v-for="(state, index) in states"
+                v-for="(state, index) in states(congress)"
                 :key="index"
                 :value="state">{{ state }}</option>
             </select>
